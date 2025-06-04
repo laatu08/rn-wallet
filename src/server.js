@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { initDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import transactionRoute from "../routes/transactionsRoute.js";
+import job from "./config/cron.js"
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(rateLimiter)
 
 
+if(process.env.NODE_ENV==="production") job.start();
 
 app.use("/api/transactions",transactionRoute);
 
