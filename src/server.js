@@ -14,6 +14,9 @@ app.use(rateLimiter)
 
 if(process.env.NODE_ENV==="production") job.start();
 
+app.get("/health",async (req, res)=>{
+    return res.json({success:true,message:"Backend is running"});
+})
 app.use("/api/transactions",transactionRoute);
 
 const PORT=process.env.PORT || 5001
